@@ -23,6 +23,8 @@ tmp/
 temp/
 hooks/
 platforms/
+plugins/
+node_modules/
 www/
 $RECYCLE.BIN/
 
