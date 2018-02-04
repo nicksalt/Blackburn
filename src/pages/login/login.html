@@ -22,22 +22,24 @@
             <ion-item id="email">
               <ion-input type="email" [placeholder]="emailPlace" name="email" [(ngModel)]="user.email"></ion-input>
             </ion-item>
-            
+            <ion-item id="password">
+              <ion-input type="password" [placeholder]="passwordPlace" name="password" [(ngModel)]="user.password"></ion-input>
+            </ion-item>
             <ion-item id="name" class="invisible">
               <ion-input type="text" [placeholder]="namePlace" name="name"  [(ngModel)]="user.name"></ion-input>
             </ion-item>
 
-            
+
           </ion-list>
         </ion-col>
       </ion-row>
-      
+
       <ion-row>
         <ion-col class="signup-col">
           <button ion-button class="submit-btn" full type="submit" (click)="login(user)">Let's Go</button>
         </ion-col>
       </ion-row>
-      
+
     </form>
   </div>
 </ion-content>

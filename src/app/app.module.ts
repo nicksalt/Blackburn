@@ -14,6 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { FIREBASE_CONFIG } from "./app.firebase.config";
+import {TabsPageModule} from "../pages/tabs/tabs.module";
 @NgModule({
   declarations: [
     MyApp,
@@ -26,7 +27,8 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TabsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
