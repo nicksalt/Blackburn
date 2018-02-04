@@ -21,6 +21,7 @@ export class LoginPage {
   user = {} as User;
   emailPlace:string;
   namePlace:string;
+  passwordPlace:string;
   signedUp: Boolean;
 
 
@@ -28,8 +29,11 @@ export class LoginPage {
   constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
       this.emailPlace = "Email";
       this.namePlace = "Full Name";
-      this.user.password = "blackburn"
+      this.passwordPlace = "Password";
       this.signedUp = false;
+      if (afAuth.auth.currentUser != null ){
+        navCtrl.setRoot("TabsPage");
+      }
  }
 
   async login(user: User){
@@ -39,7 +43,7 @@ export class LoginPage {
         if (result) {
           this.signedUp=true;
           this.navCtrl.setRoot('TabsPage');
-        }  
+        }
       }
       catch (e) {
         if (e.code == "auth/invalid-email") {
@@ -47,8 +51,11 @@ export class LoginPage {
           this.emailPlace = "Invalid Email";
         } else if (e.code == "auth/user-not-found") {
           this.register(user);
+        } else if (e.code == "auth/weak-password") {
+          user.password = "";
+          this.passwordPlace = "Password must be longer than 6 characters";
         }
-      } 
+      }
     } else {
        if (user.name.length > 0){
          this.afAuth.auth.currentUser.updateProfile({
@@ -71,12 +78,17 @@ export class LoginPage {
         user.password
       );
       if (result) {
-            document.getElementById("email").classList.add("invisible");
-            document.getElementById("name").classList.remove("invisible");
+            this.displayName();
       }
     } catch (e) {
       console.error(e);
     }
+  }
+
+  displayName(){
+    document.getElementById("email").classList.add("invisible");
+    document.getElementById("password").classList.add("invisible");
+    document.getElementById("name").classList.remove("invisible");
   }
 
 }

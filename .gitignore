@@ -19,12 +19,14 @@ npm-debug.log*
 .versions/
 coverage/
 dist/
+node_modules/
 tmp/
 temp/
 hooks/
 platforms/
 plugins/
-node_modules/
+plugins/android.json
+plugins/ios.json
 www/
 $RECYCLE.BIN/
 
