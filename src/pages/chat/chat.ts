@@ -16,13 +16,13 @@ import {AngularFireAuth} from "angularfire2/auth";
 
 export class ChatPage {
 
-  @ViewChild('content') content: Content;
+  @ViewChild(Content) content: Content;
 
   messageItem$: Observable<ChatItem[]> = this.messages.pull();
   private messageListRef = this.database.list<ChatItem>('chat', ref => ref.orderByChild("time"));
 
 
-  message:ChatItem = {
+  newMessage:ChatItem = {
     message: "",
     id: this.afAuth.auth.currentUser.refreshToken,
     time: undefined,
@@ -49,9 +49,9 @@ export class ChatPage {
   }
 
   send(){
-    this.message.time = new Date().getTime();
-    this.messages.push(this.message);
-    this.message.message = "";
+    this.newMessage.time = new Date().getTime();
+    this.messages.push(this.newMessage);
+    this.newMessage.message = "";
   }
 
 
