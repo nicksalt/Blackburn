@@ -1,20 +1,28 @@
+
 <ion-header>
-  <ion-navbar >
+  <ion-navbar color="primary">
     <ion-title >Chat</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
- <ion-list no-lines>
-  <ion-item *ngFor="let message of messagesList">
+<ion-content #content padding>
+
+  <ion-list no-lines>
+  <ion-item *ngFor="let message of messageItem$ | async">
    <h3>{{message.name}}</h3>
    <p>{{message.message}}</p>
   </ion-item>
  </ion-list>
 </ion-content>
-<ion-footer>
- <ion-item>
-  <ion-input type="text" placeholder="type here..." [(ngModel)]="newmessage"></ion-input>
-  <button ion-button clear item-right (click)="send()">Send</button>
- </ion-item>
+<ion-footer no-border>
+ <ion-row no-lines id="compose">
+   <ion-col>
+  <ion-textarea (input)="adjustTextarea($event);" placeholder="Message" [(ngModel)]="message.message"></ion-textarea>
+   </ion-col>
+   <ion-col col-auto id="button">
+  <button ion-button icon-only item-right (click)="send()">
+    <ion-icon name="send"></ion-icon>
+  </button>
+   </ion-col>
+ </ion-row>
 </ion-footer>

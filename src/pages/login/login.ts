@@ -31,13 +31,15 @@ export class LoginPage {
       this.namePlace = "Full Name";
       this.passwordPlace = "Password";
       this.signedUp = false;
-      if (afAuth.auth.currentUser != null ){
-        navCtrl.setRoot("TabsPage");
+
+
       }
- }
+
 
   async login(user: User){
+    console.log(user.email + " " + user.password + " " + user.name);
     if (!this.signedUp){
+      console.log("run");
       try {
         const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
         if (result) {
@@ -58,11 +60,13 @@ export class LoginPage {
       }
     } else {
        if (user.name.length > 0){
+         console.log(user.name);
+         let controller = this.navCtrl;
          this.afAuth.auth.currentUser.updateProfile({
            displayName: user.name,
            photoURL: ""
-         }).then(function(){
-            this.navCtrl.setRoot('TabsPage');
+         }).then(function() {
+            controller.setRoot('TabsPage')
          }).catch(function(error){
            console.error(error);
          });
@@ -89,6 +93,7 @@ export class LoginPage {
     document.getElementById("email").classList.add("invisible");
     document.getElementById("password").classList.add("invisible");
     document.getElementById("name").classList.remove("invisible");
+    this.signedUp = true;
   }
 
 }

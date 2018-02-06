@@ -1,2 +1,52 @@
-page-chat { 
+page-chat {
+  ion-content {
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: 5px solid black;
+  }
+  ion-footer {
+
+  ion col{
+  }
+    .scroll-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .scroll-content ion-list {
+      margin-top: auto;
+      margin-bottom: 0;
+    }
+    #compose {
+      background: transparent;
+      border: 0px;
+      position: relative;
+      padding: 10px;
+
+
+      ion-textarea {
+        background-color: #ffffff;
+        font-size: 14px;
+        padding: 1px 5px 1px 5px;
+        border-radius: 10px;
+        border: 1px solid #ECE9E6;
+      }
+      #button{
+        width: 55px;
+      }
+      button{
+
+        border-radius: 50%;
+        padding: 20px;
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        bottom: 8px;
+        right: 0px;
+
+        ion-icon{
+        }
+      }
+    }
+  }
 }
