@@ -15,6 +15,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import {TabsPageModule} from "../pages/tabs/tabs.module";
+import {MessageListService} from "../services/message-list/message-list.service";
+import {AngularFireDatabaseModule} from "angularfire2/database";
 @NgModule({
   declarations: [
     MyApp,
@@ -28,6 +30,7 @@ import {TabsPageModule} from "../pages/tabs/tabs.module";
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     TabsPageModule
   ],
   bootstrap: [IonicApp],
@@ -42,7 +45,8 @@ import {TabsPageModule} from "../pages/tabs/tabs.module";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MessageListService
   ]
 })
 export class AppModule {}

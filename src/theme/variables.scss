@@ -37,11 +37,11 @@ $colors: (
 	dark:               #303F9F,
 	primary:            #3F51B5,
 	light:              #C5CAE9,
-	primary-text-dark:  #FFFFFF,
-	accent:             #536DFE,
-	primary-text-light: #212121,
+  accent:             #FFFFFF,
+	primary-text-dark:  #212121,
+	primary-text-light: #FFFFFF,
 	secondary-text:     #757575,
-	divider-color:      #e6e5eb
+	divider-color:      #BDBDBD
 
 );
 
@@ -128,3 +128,13 @@ $toolbar-wp-background: map-get($colors, divider-color);
 		}
 	}
 }
+
+$text-input-md-highlight-color-invalid: transparent;
+$text-input-md-highlight-color-valid: transparent;
+$text-input-md-show-invalid-highlight: transparent;
+$text-input-md-highlight-color: transparent;
+$text-input-md-show-valid-highlight: transparent;
+
+$toolbar-md-title-text-color: map-get($colors, accent);
+$toolbar-ios-title-text-color: map-get($colors, accent);
+$toolbar-wp-title-text-color: map-get($colors, accent);
