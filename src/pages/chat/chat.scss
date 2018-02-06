@@ -1,10 +1,20 @@
 page-chat {
+
+
   ion-content {
     background: #ECE9E6;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    border: 5px solid black;
+
+
+
+    ion-item{
+      border: 8px solid red;
+    }
+
   }
+
+
   ion-footer {
 
   ion col{
@@ -17,6 +27,61 @@ page-chat {
       margin-top: auto;
       margin-bottom: 0;
     }
+
+
+/*
+    #other
+    {
+      position: relative;
+      width: 240px;
+      height: 120px;
+      padding: 0px;
+      background: #FFFFFF;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    #other:after
+    {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 9px 18px 9px 0;
+      border-color: transparent #FFFFFF;
+      display: block;
+      width: 0;
+      z-index: 1;
+      left: -18px;
+      top: 89px;
+    }
+
+    #user
+    {
+      position: relative;
+      width: 240px;
+      height: 120px;
+      padding: 0px;
+      background: #303F9F;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    #user:after
+    {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 9px 0 9px 18px;
+      border-color: transparent #303F9F;
+      display: block;
+      width: 0;
+      z-index: 1;
+      right: -18px;
+      top: 89px;
+    }
+    */
     #compose {
       background: transparent;
       border: 0px;
@@ -48,5 +113,9 @@ page-chat {
         }
       }
     }
+  }
+
+  .chat{
+    border: 5px solid black;
   }
 }
