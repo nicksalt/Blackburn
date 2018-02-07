@@ -7,8 +7,11 @@
 
 <ion-content  padding>
 
-  <ion-item class="test" no-lines text-wrap *ngFor="let message of messageItem$ | async | slice:[loadMin]:[loadMax]">
-    <div [ngClass]="message.id == newMessage.id ? 'user' : 'other'">
+  <ion-item class="chat-item" no-lines text-wrap *ngFor="let message of messageItem$ | async | slice:[loadMin]:[loadMax]">
+
+    <span [ngClass]="message.email == newMessage.email ? 'user-triangle' : 'other-triangle'"></span>
+    <div class="bubble" [ngClass]="message.email == newMessage.email ? 'user' : 'other'">
+
       <h3>{{message.name}}</h3>
       <p>{{message.message}}</p>
     </div>

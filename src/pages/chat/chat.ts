@@ -1,10 +1,11 @@
 import {Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Content, NavController, NavParams} from 'ionic-angular';
+import {App, Content, NavController, NavParams} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {ChatItem} from "../../models/chat-item";
 import {MessageListService} from "../../services/message-list/message-list.service";
 import {AngularFireDatabase} from "angularfire2/database";
 import {AngularFireAuth} from "angularfire2/auth";
+import {getNgModuleDataFromPage} from "@ionic/app-scripts/dist/deep-linking/util";
 
 
 @Component({
@@ -21,10 +22,9 @@ export class ChatPage {
   messageItem$: Observable<ChatItem[]> = this.messages.pull();
   private messageListRef = this.database.list<ChatItem>('chat', ref => ref.orderByChild("time"));
 
-
   newMessage:ChatItem = {
     message: "",
-    id: this.afAuth.auth.currentUser.refreshToken,
+    email: this.afAuth.auth.currentUser.email,
     time: undefined,
     name: this.afAuth.auth.currentUser.displayName
   };
@@ -32,11 +32,16 @@ export class ChatPage {
   loadMin:number = 0;
   loadMax: number = 0;
   loadFactor:number = 15;
-  constructor(private navCtrl: NavController, public navParams:NavParams, public element:ElementRef, private messages:MessageListService, private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(private navCtrl: NavController, public navParams:NavParams, public element:ElementRef, private messages:MessageListService,
+              private database: AngularFireDatabase, private afAuth: AngularFireAuth, private app: App) {
 
     this.messageListRef.snapshotChanges().map(list=>list.length).subscribe(action => {
       console.log(this.loadMin + ' - ' + this.loadMax)
-      this.content.scrollToBottom();
+      try {
+        this.content.scrollToBottom();
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     this.database.database.ref('chat').on("value", snapshot => {
@@ -67,9 +72,8 @@ export class ChatPage {
   }
 
 testing(){
-    if (this.loadMin - this.loadFactor > 0) {
-      this.loadMin = this.loadMin - this.loadFactor;
-    }
-    this.loadFactor = this.loadFactor + 15;
+    this.afAuth.auth.signOut();
+    this.app.getRootNav().setRoot("LoginPage")
 }
+
 }

@@ -17,13 +17,13 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
 import {TabsPageModule} from "../pages/tabs/tabs.module";
 import {MessageListService} from "../services/message-list/message-list.service";
 import {AngularFireDatabaseModule} from "angularfire2/database";
+import {LoginPageModule} from "../pages/login/login.module";
 @NgModule({
   declarations: [
     MyApp,
     ListsPage,
     ChatPage,
-    CalendarPage,
-    LoginPage
+    CalendarPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +31,8 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    TabsPageModule
+    TabsPageModule,
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
