@@ -29,11 +29,23 @@ export class ChatPage {
     name: this.afAuth.auth.currentUser.displayName
   };
 
+  loadMin:number = 0;
+  loadMax: number = 0;
+  loadFactor:number = 15;
   constructor(private navCtrl: NavController, public navParams:NavParams, public element:ElementRef, private messages:MessageListService, private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
 
-    this.messageListRef.snapshotChanges().subscribe(action => {
+    this.messageListRef.snapshotChanges().map(list=>list.length).subscribe(action => {
+      console.log(this.loadMin + ' - ' + this.loadMax)
       this.content.scrollToBottom();
     });
+
+    this.database.database.ref('chat').on("value", snapshot => {
+        this.loadMax = snapshot.numChildren();
+        if(this.loadMax - this.loadFactor > 0) {
+          this.loadMin = this.loadMax - this.loadFactor;
+        }
+      });
+
   }
 
   protected adjustTextarea(event: any): void {
@@ -54,5 +66,10 @@ export class ChatPage {
     this.newMessage.message = "";
   }
 
-
+testing(){
+    if (this.loadMin - this.loadFactor > 0) {
+      this.loadMin = this.loadMin - this.loadFactor;
+    }
+    this.loadFactor = this.loadFactor + 15;
+}
 }
