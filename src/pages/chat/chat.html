@@ -1,20 +1,16 @@
 
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title >Chat</ion-title>
+    <ion-title (click)="testing()" >Chat</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content  padding>
 
-  <ion-item no-lines *ngFor="let message of messageItem$ | async">
-    <div id="other" *ngIf=" message.id != newMessage.id">
-      <h3>{{message.name}}a</h3>
-      <p>{{message.message}}a</p>
-    </div>
-    <div *ngIf=" message.id == newMessage.id" style="">
-      <h3>{{message.name}}s</h3>
-      <p>{{message.message}}s</p>
+  <ion-item class="test" no-lines text-wrap *ngFor="let message of messageItem$ | async | slice:[loadMin]:[loadMax]">
+    <div [ngClass]="message.id == newMessage.id ? 'user' : 'other'">
+      <h3>{{message.name}}</h3>
+      <p>{{message.message}}</p>
     </div>
   </ion-item>
 </ion-content>

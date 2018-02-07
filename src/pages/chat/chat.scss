@@ -7,29 +7,38 @@ page-chat {
     background: linear-gradient(to top, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
+  }
 
-    ion-item{
-      border: 8px solid red;
+  .test{
+    background-color: transparent;
+    .user
+    {
+      position: relative;
+      width: 50%;
+      padding: 10px;
+      margin-left: 50%;
+      background: map-get($colors, light);
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    .other {
+
+      position: relative;
+      width: 50%;
+      padding: 10px;
+      background: map-get($colors, accent);
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
     }
 
   }
 
 
   ion-footer {
-
-  ion col{
-  }
-    .scroll-content {
-      display: flex;
-      flex-direction: column;
-    }
-    .scroll-content ion-list {
-      margin-top: auto;
-      margin-bottom: 0;
-    }
-
-
-/*
+  /*
     #other
     {
       position: relative;
@@ -109,13 +118,7 @@ page-chat {
         bottom: 8px;
         right: 0px;
 
-        ion-icon{
-        }
       }
     }
-  }
-
-  .chat{
-    border: 5px solid black;
   }
 }
