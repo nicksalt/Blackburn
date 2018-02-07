@@ -1,6 +1,6 @@
 export interface ChatItem{
   message: string;
-  id: string;
+  email: string;
   name: string;
   time: number;
 }
