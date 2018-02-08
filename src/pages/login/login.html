@@ -8,37 +8,36 @@
 
 </ion-header>
 
-<ion-content class="login-content" padding>
-  <img src="./assets/imgs/kessel.png" id="bg" alt="">
+<ion-content class="login-content">
 
-  <ion-row class="logo-row">
-  </ion-row>
+  <div id="first">
+  <img src="./assets/icon/icon.png" id="bg" alt="">
+  </div>
+
+
   <div class="login-box">
     <form>
-      <ion-row>
-        <ion-col>
           <ion-list inset>
 
             <ion-item id="email">
-              <ion-input type="email" [placeholder]="emailPlace" name="email" [(ngModel)]="user.email"></ion-input>
+              <ion-label stacked>Email</ion-label>
+              <ion-input type="email"  name="email" [(ngModel)]="user.email"></ion-input>
             </ion-item>
             <ion-item id="password">
-              <ion-input type="password" [placeholder]="passwordPlace" name="password" [(ngModel)]="user.password"></ion-input>
+              <ion-label stacked>Password</ion-label>
+
+              <ion-input type="password"  name="password" [(ngModel)]="user.password"></ion-input>
             </ion-item>
             <ion-item id="name" class="invisible">
-              <ion-input type="text" [placeholder]="namePlace" name="name"  [(ngModel)]="user.name"></ion-input>
+              <ion-label stacked>Full Name</ion-label>
+              <ion-input type="text" name="name" id="name" [(ngModel)]="user.name"></ion-input>
             </ion-item>
 
 
           </ion-list>
-        </ion-col>
-      </ion-row>
+          <button ion-button class="submit-btn" full type="submit" (click)="login(user)"><span>Let's Go</span></button>
 
-      <ion-row>
-        <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" (click)="login(user)">Let's Go</button>
-        </ion-col>
-      </ion-row>
+      <button ion-button full id="forgot-password" color="secondary-text" clear>Forgot your password?</button>
 
     </form>
   </div>
