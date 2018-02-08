@@ -1,64 +1,93 @@
 page-login {
- 
+
   .login-content {
-    #bg {
-	  position: fixed; 
-	  top: 0; 
-	  left: 0; 
-		
-	  /* Preserve aspet ratio */
-	  min-width: 100%;
-	  min-height: 100%;
-	}
-	
- 
-    .logo-row {
-      padding-top: 50px;
-      padding-bottom: 20px;
+
+    position: relative;
+    #first {
+      background-color: map-get($colors, primary);
+      height: 50%;
+
+
+      #bg {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40vw;
+        height: 40vw;
+        max-width: 250px;
+        max-height: 250px;
+        min-width: 100px;
+        min-height: 100px;
+      }
     }
- 
+
+
     .login-box {
-      padding: 20px 20px 0px 20px;
-      right:0;
-      width: 100%;
+
+      background-color: map-get($colors, accent);
+      width: 85%;
+      border-radius: 30px;
+      max-width: 650px;
       position: absolute;
-      bottom: 0;
+      top:50%;
+      left: 50%;
+      margin-top: -30px;
+      transform: translateX(-50%);
     }
- 
-    ion-row {
-       align-items: center;
-       text-align: center;
-     }
- 
+
      ion-item {
-         border-radius: 30px !important;
-         padding-left: 30px !important;
-         font-size: 0.9em;
-         margin-bottom: 20px;
-         border: 1px solid #ffffff;
-         border-bottom: 0px !important;
-         box-shadow: none !important;
+       padding-left: 30px !important;
+       font-size: 1em;
+       margin: 0 auto 20px auto;
+       max-width: 500px;
+       width: 85%;
+
+       #name {
+         border-bottom: 1px solid map-get($colors, primary);
+       }
+
      }
- 
+
      .signup-col {
-       margin: 0px 16px 0px 16px;
        padding-bottom: 20px;
      }
- 
-     .item-inner {
-       border-bottom-color: #ffffff !important;
-       box-shadow: none !important;
-     }
- 
+
+
      .submit-btn {
        background: color($colors, primary);
        border-radius: 30px !important;
-       border: 1px solid #ffffff;
+       border: 2px solid map_get($colors, accent);
+       max-width: 200px;
+       margin: 0 auto 20px auto;
+
+       span{
+         color: map-get($colors, accent);
+       }
+
      }
- 
+    .submit-btn:hover {
+      background: color($colors, accent);
+      border: 2px solid map_get($colors, primary);
+
+      span{
+        color: map-get($colors, primary);
+      }
+
+    }
+
+
+    #forgot-password{
+      margin: auto;
+      max-width: max-content;
+
+    }
+
   }
   .invisible{
   	display: none;
   }
- 
+
+
+
 }

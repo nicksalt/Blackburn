@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -26,10 +26,10 @@ export class LoginPage {
 
 
 
-  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
-      this.emailPlace = "Email";
-      this.namePlace = "Full Name";
-      this.passwordPlace = "Password";
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+      this.emailPlace = "";
+      this.namePlace = "";
+      this.passwordPlace = "";
       this.signedUp = false;
 
 
@@ -50,22 +50,24 @@ export class LoginPage {
       catch (e) {
         if (e.code == "auth/invalid-email") {
           user.email = "";
-          this.emailPlace = "Invalid Email";
+          this.showAlert("Your email format is invalid. Make sure you have an @ address and a domain extension (e.g. .com)", true);
         } else if (e.code == "auth/user-not-found") {
           this.register(user);
-        } else if (e.code == "auth/weak-password") {
+        } else if (e.code == "auth/wrong-password") {
           user.password = "";
-          this.passwordPlace = "Password must be longer than 6 characters";
+          this.showAlert("That's not your password. If you forget it press below and I'll send you a new one.", true);
         }
       }
     } else {
        if (user.name.length > 0){
          console.log(user.name);
          let controller = this.navCtrl;
+         let funcCall = this;
          this.afAuth.auth.currentUser.updateProfile({
            displayName: user.name,
            photoURL: ""
          }).then(function() {
+           funcCall.showAlert("You ready for an awesome app!", false);
             controller.setRoot('TabsPage')
          }).catch(function(error){
            console.error(error);
@@ -89,10 +91,27 @@ export class LoginPage {
     }
   }
 
+  showAlert(message, isBasic, title?){
+    if (isBasic) {
+      if (title == null){
+        title = 'Login Issue';
+      }
+      let alert = this.alertCtrl.create({
+        title: title,
+        subTitle: message,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+  }
+
   displayName(){
     document.getElementById("email").classList.add("invisible");
     document.getElementById("password").classList.add("invisible");
     document.getElementById("name").classList.remove("invisible");
+    document.getElementById("forgot-password").classList.add("invisible");
+    this.showAlert("Enter a name to be used in the app, you can change this whenever you want. It will be used in the chat, " +
+      "list, and calendar. So preferably make it your actual name.", true, "Enter your Name");
     this.signedUp = true;
   }
 
