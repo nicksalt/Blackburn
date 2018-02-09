@@ -29,15 +29,15 @@
               <ion-input type="password"  name="password" [(ngModel)]="user.password"></ion-input>
             </ion-item>
             <ion-item id="name" class="invisible">
-              <ion-label stacked>Full Name</ion-label>
-              <ion-input type="text" name="name" id="name" [(ngModel)]="user.name"></ion-input>
+              <ion-label stacked>Name</ion-label>
+              <ion-input type="text" name="name" id="name-input" [(ngModel)]="user.name"></ion-input>
             </ion-item>
 
 
           </ion-list>
           <button ion-button class="submit-btn" full type="submit" (click)="login(user)"><span>Let's Go</span></button>
 
-      <button ion-button full id="forgot-password" color="secondary-text" clear>Forgot your password?</button>
+      <button ion-button full id="forgot-password" color="secondary-text" clear (click)="forgotPassword()" >Forgot your password?</button>
 
     </form>
   </div>

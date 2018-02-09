@@ -87,7 +87,7 @@ export class LoginPage {
             this.displayName();
       }
     } catch (e) {
-      console.error(e);
+      console.error(e.code);
     }
   }
 
@@ -110,9 +110,27 @@ export class LoginPage {
     document.getElementById("password").classList.add("invisible");
     document.getElementById("name").classList.remove("invisible");
     document.getElementById("forgot-password").classList.add("invisible");
-    this.showAlert("Enter a name to be used in the app, you can change this whenever you want. It will be used in the chat, " +
-      "list, and calendar. So preferably make it your actual name.", true, "Enter your Name");
+    this.showAlert("Enter a name to be used in the app. Don't worry you can change this whenever you want. It will be used in the chat, " +
+      "list, and calendar... so preferably make it your actual name.", true, "Last Step!");
     this.signedUp = true;
+  }
+
+  forgotPassword(){
+    try {
+      const result = this.afAuth.auth.sendPasswordResetEmail(this.user.email);
+      if (result) {
+        this.showAlert("We've send you a password reset link to your email. Check your inbox for an email from noreply@blackburn-1998.firebaseapp.com", true, "Password reset send!")
+      }
+    } catch (e) {
+      console.log(e.code);
+      if (e.code == "auth/invalid-email" || "auth/argument-error"){
+        this.showAlert("Please enter a valid email.", true, "Email Issue")
+      } else if (e.code == "auth/user-not-found") {
+        this.showAlert("Your not a user yet! Enter a password to complete the sign up." + this.user.email, true, "Hey, wait a minute...")
+
+      }
+    }
+
   }
 
 }

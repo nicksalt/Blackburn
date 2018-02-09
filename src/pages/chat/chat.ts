@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {App, Content, NavController, NavParams} from 'ionic-angular';
+import {App, Content, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {ChatItem} from "../../models/chat-item";
 import {MessageListService} from "../../services/message-list/message-list.service";
@@ -32,7 +32,7 @@ export class ChatPage {
   loadMin:number = 0;
   loadMax: number = 0;
   loadFactor:number = 15;
-  constructor(private navCtrl: NavController, public navParams:NavParams, public element:ElementRef, private messages:MessageListService,
+  constructor(private navCtrl: NavController, public popoverCtrl: PopoverController, public element:ElementRef, private messages:MessageListService,
               private database: AngularFireDatabase, private afAuth: AngularFireAuth, private app: App) {
 
     this.messageListRef.snapshotChanges().map(list=>list.length).subscribe(action => {
@@ -75,5 +75,12 @@ testing(){
     this.afAuth.auth.signOut();
     this.app.getRootNav().setRoot("LoginPage")
 }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create('PopoverPage');
+    popover.present({
+      ev: myEvent
+    });
+  }
 
 }
