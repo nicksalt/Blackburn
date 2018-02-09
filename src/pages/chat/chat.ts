@@ -50,7 +50,7 @@ export class ChatPage {
           this.loadMin = this.loadMax - this.loadFactor;
         }
       });
-
+    
   }
 
   protected adjustTextarea(event: any): void {
@@ -70,12 +70,6 @@ export class ChatPage {
     this.messages.push(this.newMessage);
     this.newMessage.message = "";
   }
-
-testing(){
-    this.afAuth.auth.signOut();
-    this.app.getRootNav().setRoot("LoginPage")
-}
-
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create('PopoverPage');
     popover.present({
