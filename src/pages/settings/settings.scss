@@ -1,0 +1,23 @@
+page-settings {
+
+  ion-content{
+
+    ion-list{
+      ion-item{
+        ion-label{
+
+        }
+        ion-note {
+          max-width: 65% !important;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+    button{
+      margin: 20px 0 !important;
+    }
+  }
+
+}

@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
+import { DocumentViewer } from '@ionic-native/document-viewer';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth'
@@ -18,6 +19,9 @@ import {TabsPageModule} from "../pages/tabs/tabs.module";
 import {MessageListService} from "../services/message-list/message-list.service";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {LoginPageModule} from "../pages/login/login.module";
+import {SettingsPage} from "../pages/settings/settings";
+import {SettingsPageModule} from "../pages/settings/settings.module";
+
 @NgModule({
   declarations: [
     MyApp,
@@ -32,7 +36,8 @@ import {LoginPageModule} from "../pages/login/login.module";
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     TabsPageModule,
-    LoginPageModule
+    LoginPageModule,
+    SettingsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,13 +46,15 @@ import {LoginPageModule} from "../pages/login/login.module";
     ChatPage,
     CalendarPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MessageListService
+    MessageListService,
+    DocumentViewer
   ]
 })
 export class AppModule {}

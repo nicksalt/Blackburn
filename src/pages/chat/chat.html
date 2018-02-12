@@ -1,7 +1,6 @@
-
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Chat</ion-title>
+    <ion-title (click)="test()">Chat</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
@@ -9,23 +8,26 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content  padding>
 
-  <ion-item class="chat-item" no-lines text-wrap *ngFor="let message of messageItem$ | async | slice:[loadMin]:[loadMax]">
+  <ion-list ontimeupdate="this.test2();" id="chat-list" >
+  <ion-item onchange="test2()" class="chat-item" no-lines text-wrap *ngFor="let message of messageItem$ | async">
+    <div [ngClass]="message.id == newMessage.id ? 'user' : 'other'">
+    <span></span>
+    <div class="bubble">
 
-    <span [ngClass]="message.email == newMessage.email ? 'user-triangle' : 'other-triangle'"></span>
-    <div class="bubble" [ngClass]="message.email == newMessage.email ? 'user' : 'other'">
-
-      <h3>{{message.name}}</h3>
+      <h3 [ngStyle]="{'color':getColor(message.id)}">{{message.name}}</h3>
       <p>{{message.message}}</p>
     </div>
+    <h6>{{timeToDate(message.time)}}</h6>
+    </div>
   </ion-item>
+  </ion-list>
 </ion-content>
 <ion-footer no-border>
  <ion-row no-lines id="compose">
    <ion-col>
-  <ion-textarea (input)="adjustTextarea($event);" placeholder="Message" [(ngModel)]="newMessage.message"></ion-textarea>
+  <ion-textarea (input)="adjustTextarea($event);" id="text" placeholder="Message" [(ngModel)]="newMessage.message"></ion-textarea>
    </ion-col>
    <ion-col col-auto id="button">
   <button ion-button icon-only item-right (click)="send()">

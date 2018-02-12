@@ -1,6 +1,7 @@
 export interface ChatItem{
   message: string;
-  email: string;
+  id: string;
   name: string;
   time: number;
+  color?: string
 }

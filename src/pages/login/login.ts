@@ -55,7 +55,7 @@ export class LoginPage {
           this.register(user);
         } else if (e.code == "auth/wrong-password") {
           user.password = "";
-          this.showAlert("That's not your password. If you forget it press below and I'll send you a new one.", true);
+          this.showAlert("That's not your password. If you forgot it press below and I'll send you a new one.", true);
         }
       }
     } else {

@@ -1,11 +1,10 @@
 import {Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {App, Content, NavController, NavParams, PopoverController} from 'ionic-angular';
+import {App, Content, NavController, PopoverController} from 'ionic-angular';
 import {Observable} from "rxjs/Observable";
 import {ChatItem} from "../../models/chat-item";
 import {MessageListService} from "../../services/message-list/message-list.service";
-import {AngularFireDatabase} from "angularfire2/database";
 import {AngularFireAuth} from "angularfire2/auth";
-import {getNgModuleDataFromPage} from "@ionic/app-scripts/dist/deep-linking/util";
+import {AngularFireDatabase} from "angularfire2/database";
 
 
 @Component({
@@ -19,42 +18,50 @@ export class ChatPage {
 
   @ViewChild(Content) content: Content;
 
-  messageItem$: Observable<ChatItem[]> = this.messages.pull();
-  private messageListRef = this.database.list<ChatItem>('chat', ref => ref.orderByChild("time"));
+  messageItem$: Observable<ChatItem[]>;
 
   newMessage:ChatItem = {
     message: "",
-    email: this.afAuth.auth.currentUser.email,
+    id: this.afAuth.auth.currentUser.uid,
     time: undefined,
-    name: this.afAuth.auth.currentUser.displayName
+    name: ''
   };
 
-  loadMin:number = 0;
-  loadMax: number = 0;
-  loadFactor:number = 15;
-  constructor(private navCtrl: NavController, public popoverCtrl: PopoverController, public element:ElementRef, private messages:MessageListService,
-              private database: AngularFireDatabase, private afAuth: AngularFireAuth, private app: App) {
+  public loadMin:number;
+  public loadMax: number;
+  messageText:HTMLElement;
+  messageTextInitalHeight:number;
+  private messages:MessageListService;
 
-    this.messageListRef.snapshotChanges().map(list=>list.length).subscribe(action => {
-      console.log(this.loadMin + ' - ' + this.loadMax)
-      try {
-        this.content.scrollToBottom();
-      } catch (e) {
-        console.log(e);
-      }
+
+
+  constructor(private navCtrl: NavController, public popoverCtrl: PopoverController, public element:ElementRef, private database:AngularFireDatabase,
+             private afAuth: AngularFireAuth, private app:App) {
+    this.messages = MessageListService.getInstance(this.database);
+
+    this.messageItem$ = this.messages.pull();
+
+  }
+
+  ionViewDidEnter(){
+    this.messages.connect();
+    this.messageItem$.subscribe(() =>{
+      setTimeout(() => {
+        this.goToBottom();
+      }, 100)
     });
+  }
 
-    this.database.database.ref('chat').on("value", snapshot => {
-        this.loadMax = snapshot.numChildren();
-        if(this.loadMax - this.loadFactor > 0) {
-          this.loadMin = this.loadMax - this.loadFactor;
-        }
-      });
-    
+  ionViewDidLeave(){
+    this.messages.disconnect();
   }
 
   protected adjustTextarea(event: any): void {
     let textarea: any		= event.target;
+    if (this.messageText == null){
+      this.messageText = textarea;
+      this.messageTextInitalHeight = textarea.scrollHeight;
+    }
     if (textarea.scrollHeight < 85) {
       textarea.style.overflow = 'hidden';
       textarea.style.height = 'auto';
@@ -67,14 +74,66 @@ export class ChatPage {
 
   send(){
     this.newMessage.time = new Date().getTime();
+    this.newMessage.name = this.afAuth.auth.currentUser.displayName;
     this.messages.push(this.newMessage);
     this.newMessage.message = "";
+    if (this.messageText != null) {
+      this.messageText.style.height = this.messageTextInitalHeight + 'px';
+    }
+
   }
+
+
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create('PopoverPage');
+    let popover = this.popoverCtrl.create('PopoverPage', this);
     popover.present({
       ev: myEvent
     });
+  }
+
+  test(){
+    console.log(this.loadMin + ' ' + this.loadMax);
+    console.log(this.content.scrollHeight + " " + this.content.contentHeight + " " + this.content.scrollTop + " " + this.content._ftrHeight + " " + this.content._hdrHeight)
+    console.log(document.getElementById('chat-list').childElementCount);
+  }
+
+   goToBottom(){
+    try {
+        this.content.scrollToBottom();
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  getColor(id){
+    return this.messages.getColors()[id]
+  }
+
+  timeToDate(time){
+    let messageDate = new Date(time);
+    let rightNow = new Date();
+    let ampm = messageDate.getHours() >=12 ? 'PM':'AM';
+    let hours = (messageDate.getHours()%12 == 0? 12: messageDate.getHours()%12);
+    let minutes = (messageDate.getMinutes()<10?'0':'');
+    console.log()
+
+    if (messageDate.toDateString() == rightNow.toDateString()){
+      return "Today, " + hours+":"+ minutes + messageDate.getMinutes()+ampm;
+    }
+    rightNow.setDate(rightNow.getDate() - 1);
+    if (messageDate.toDateString() == rightNow.toDateString()) {
+      return "Yesterday, " + hours + ":" + minutes + messageDate.getMinutes() + ampm;
+    }
+    let date = messageDate.toLocaleDateString();
+    if (date.charAt(0) != '1'){
+      date = '0'+ date
+    }
+    if (date.charAt(4) == '/') {
+      date = date.substring(0, 3) + '0' + date.substring(3);
+    }
+    date = date.substring(0,6) + date.substring(8);
+    return date+', ' + hours + ":" + minutes + messageDate.getMinutes() + ampm;
   }
 
 }

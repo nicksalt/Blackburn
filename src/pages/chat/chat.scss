@@ -1,18 +1,18 @@
 page-chat {
 
-
   ion-content {
-    background: #ECE9E6;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #ECE9E6; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #FFFFFF, #ECE9E6); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 
   }
 
-  .chat-item{
+  .chat-item {
     background-color: transparent;
 
-    .bubble{
+
+
+    .bubble {
       position: relative;
       max-width: 80%;
       width: max-content;
@@ -21,144 +21,90 @@ page-chat {
       -moz-border-radius: 10px;
       border-radius: 10px;
 
-      h3{
+      h3 {
 
         padding-left: 5px;
         margin-bottom: 5px;
-        color: red;
         font-weight: bold;
 
       }
-      p{
+      p {
         padding-left: 5px;
         padding-right: 10px;
         color: map-get($colors, primary-text-dark);
       }
+
     }
-    .user-triangle {
-      height: 0;
-      width: 0;
-      top: 7px;
-      right: 12px;
-      border-top: 10px solid transparent;
-      border-right: 20px solid map-get($colors, light);
-      border-bottom: 10px solid transparent;
-      -webkit-transform: rotate(22deg);
-      transform: rotate(22deg);
-      position: absolute;
-    }
-    .user
-    {
-      margin-left: 100%;
-      transform: translateX(-100%);
-      background: map-get($colors, light);
-
-      h3{
-        display: none;
-      }
-
-      p{
-
-      }
-    }
-
-    .other-triangle {
-      height: 0px;
-      width: 0px;
-      top: 7px;
-      left: 12px;
-      border-top: 10px solid transparent;
-      border-left: 20px solid map-get($colors, accent);
-      border-bottom: 10px solid transparent;
-      -webkit-transform: rotate(-22deg);
-      transform: rotate(-22deg);
-      position: absolute;
-    }
-
-    .other {
-      background: map-get($colors, accent);
-      span.triangle {
-
-        background: map-get($colors, accent);
-        border-radius: 2px;
-        height: 8px;
-        width: 8px;
-        top: 12px;
-        left: -2px;
-        display: block;
-        border-style: solid;
-        border-color: #ddd;
-        border-width: 1px;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+    .user{
+      span {
+        height: 0;
+        width: 0;
+        top: 7px;
+        right: 12px;
+        border-top: 10px solid transparent;
+        border-right: 20px solid map-get($colors, light);
+        border-bottom: 10px solid transparent;
+        -webkit-transform: rotate(22deg);
+        transform: rotate(22deg);
         position: absolute;
       }
 
+      .bubble{
+        margin-left: 100%;
+        transform: translateX(-100%);
+        background: map-get($colors, light);
+
+        h3 {
+          display: none;
+        }
+      }
+      h6{
+        position: absolute;
+        bottom: -2px;
+        right: 20px;
+      }
     }
 
+    .other{
+
+      span {
+        height: 0px;
+        width: 0px;
+        top: 7px;
+        left: 12px;
+        border-top: 10px solid transparent;
+        border-left: 20px solid map-get($colors, accent);
+        border-bottom: 10px solid transparent;
+        -webkit-transform: rotate(-22deg);
+        transform: rotate(-22deg);
+        position: absolute;
+      }
+
+      .bubble {
+        background: map-get($colors, accent);
+      }
+
+      h6{
+        position: absolute;
+        bottom:-2px;
+        left:20px;
+      }
+    }
+
+
+
+    h6{
+      font-size: 10px;
+      color: map-get($colors, secondary-text);
+    }
   }
 
-
   ion-footer {
-  /*
-    #other
-    {
-      position: relative;
-      width: 240px;
-      height: 120px;
-      padding: 0px;
-      background: #FFFFFF;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-    }
-
-    #other:after
-    {
-      content: '';
-      position: absolute;
-      border-style: solid;
-      border-width: 9px 18px 9px 0;
-      border-color: transparent #FFFFFF;
-      display: block;
-      width: 0;
-      z-index: 1;
-      left: -18px;
-      top: 89px;
-    }
-
-    #user
-    {
-      position: relative;
-      width: 240px;
-      height: 120px;
-      padding: 0px;
-      background: #303F9F;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-    }
-
-    #user:after
-    {
-      content: '';
-      position: absolute;
-      border-style: solid;
-      border-width: 9px 0 9px 18px;
-      border-color: transparent #303F9F;
-      display: block;
-      width: 0;
-      z-index: 1;
-      right: -18px;
-      top: 89px;
-    }
-    */
     #compose {
       background: transparent;
       border: 0px;
       position: relative;
       padding: 10px;
-
 
       ion-textarea {
         background-color: #ffffff;
@@ -167,10 +113,10 @@ page-chat {
         border-radius: 10px;
         border: 1px solid #ECE9E6;
       }
-      #button{
+      #button {
         width: 55px;
       }
-      button{
+      button {
 
         border-radius: 50%;
         padding: 20px;
@@ -183,4 +129,5 @@ page-chat {
       }
     }
   }
+
 }

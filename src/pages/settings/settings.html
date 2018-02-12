@@ -1,0 +1,79 @@
+<!--
+  Generated template for the SettingsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list no-border>
+    <ion-list-header>
+      Account
+    </ion-list-header>
+
+    <ion-item (click)="changeEmail()" detail-push>
+      <ion-icon name='mail' item-start></ion-icon>
+
+      <ion-label>Email</ion-label>
+      <ion-note item-right>
+        {{email}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item (click)="changeDisplayName()" detail-push>
+      <ion-icon name='person' item-start></ion-icon>
+      <ion-label>Name</ion-label>
+      <ion-note item-end>
+        {{name}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item (click)="changePassword()" detail-push>
+      <ion-icon name='create' item-start></ion-icon>
+      <ion-label>Password</ion-label>
+      <ion-note item-end>
+        ••••••
+      </ion-note>
+
+    </ion-item>
+    <button (click)="signOut()" ion-button block outline>Sign Out</button>
+
+    <ion-list-header>
+      Push Notifications
+    </ion-list-header>
+
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+        Chat
+      </ion-label>
+      <ion-icon name='chatbubbles' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+        List
+      </ion-label>
+      <ion-icon name='list-box' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle checked="true"></ion-toggle>
+      <ion-label>
+        Calendar
+      </ion-label>
+      <ion-icon name='calendar' item-start></ion-icon>
+    </ion-item>
+
+
+  </ion-list>
+</ion-content>
