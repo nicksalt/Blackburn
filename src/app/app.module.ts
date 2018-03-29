@@ -8,7 +8,6 @@ import { ChatPage } from '../pages/chat/chat';
 import { CalendarPage} from '../pages/calendar/calendar';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,8 +20,10 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {LoginPageModule} from "../pages/login/login.module";
 import {SettingsPage} from "../pages/settings/settings";
 import {SettingsPageModule} from "../pages/settings/settings.module";
+import {Device} from "@ionic-native/device";
 
 @NgModule({
+
   declarations: [
     MyApp,
     ListsPage,
@@ -47,14 +48,14 @@ import {SettingsPageModule} from "../pages/settings/settings.module";
     CalendarPage,
     TabsPage,
     LoginPage,
-    SettingsPage
+    SettingsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Device,
+    DocumentViewer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MessageListService,
-    DocumentViewer
   ]
 })
 export class AppModule {}

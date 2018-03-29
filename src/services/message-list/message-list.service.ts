@@ -12,7 +12,7 @@ export class MessageListService {
   list:Observable<ChatItem[]>;
   static instance:MessageListService;
   messageListRef:AngularFireList<ChatItem>;
-  colors:string[] = ['red','dodgerblue','blueviolet','darkorange','lightgreen', 'lightcoral', 'tomato', 'navy', 'teal']
+  colors:string[] = ['red','dodgerblue','blueviolet','darkorange','lightgreen', 'lightcoral', 'tomato', 'navy', 'teal'];
   private colorName:{[key:string]:string} = {};
   colorIndex = 0;
 

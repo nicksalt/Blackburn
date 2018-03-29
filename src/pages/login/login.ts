@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth';
+import {UserDevice} from "../../models/user-device";
+import {Device} from "@ionic-native/device";
+import {AngularFireDatabase} from "angularfire2/database";
 
 
 /**
@@ -18,6 +21,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class LoginPage {
 
+  userDevice = {} as UserDevice;
   user = {} as User;
   emailPlace:string;
   namePlace:string;
@@ -25,16 +29,24 @@ export class LoginPage {
   signedUp: Boolean;
 
 
-
-  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams,
+              private alertCtrl: AlertController, private device:Device, private database:AngularFireDatabase) {
       this.emailPlace = "";
       this.namePlace = "";
       this.passwordPlace = "";
       this.signedUp = false;
+      console.log(this.device);
 
+      this.userDevice.manufacturer = this.device.manufacturer;
+      this.userDevice.platform = this.device.platform;
+      this.userDevice.version = this.device.version;
+      this.userDevice.model = this.device.model;
+      this.userDevice.isVirtual = this.device.isVirtual;
 
-      }
+  }
 
+  ionVeiwDidLoad(){
+  }
 
   async login(user: User){
     console.log(user.email + " " + user.password + " " + user.name);
@@ -43,8 +55,7 @@ export class LoginPage {
       try {
         const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
         if (result) {
-          this.signedUp=true;
-          this.navCtrl.setRoot('TabsPage');
+          this.openApp();
         }
       }
       catch (e) {
@@ -66,9 +77,8 @@ export class LoginPage {
          this.afAuth.auth.currentUser.updateProfile({
            displayName: user.name,
            photoURL: ""
-         }).then(function() {
-           funcCall.showAlert("You ready for an awesome app!", false);
-            controller.setRoot('TabsPage')
+         }).then(() => {
+           this.openApp();
          }).catch(function(error){
            console.error(error);
          });
@@ -132,5 +142,17 @@ export class LoginPage {
     }
 
   }
+
+  openApp(){
+    let TOKEN_ID = "TOKEN ID 2";
+    let userRef = this.database.object("users/" + this.afAuth.auth.currentUser.uid + "/" +  TOKEN_ID);
+    userRef.set(this.userDevice).then(() => {
+      console.log(this.userDevice);
+    });
+    this.signedUp=true;
+    this.navCtrl.setRoot('TabsPage');
+  }
+
+
 
 }
